@@ -1,0 +1,56 @@
+[
+  {
+    "id": "8f58ade1-8c2b-4ec4-935a-6c2153cc1a52",
+    "profile_pic": "https://d2l9nsnmtah87f.cloudfront.net/profile-images/adi_mutu-0faacbd3-b8cf-4a2e-9d12-e03aefb718da.jpg",
+    "username": "adi_mutu",
+    "verified": false,
+    "full_name": "Adi Mutu",
+    "following_status": "following",
+    "private_profile": false
+  },
+  {
+    "id": "531ea166-3949-46c1-973a-054801eba65c",
+    "profile_pic": "https://d2l9nsnmtah87f.cloudfront.net/profile-images/aendeulyu-22890591-51d0-4feb-bf39-3a7a32bac197.jpg",
+    "username": "aendeulyu",
+    "verified": false,
+    "full_name": "Andy",
+    "following_status": "following",
+    "private_profile": false
+  },
+  {
+    "id": "8fdc6072-8572-4854-892e-83649772f393",
+    "profile_pic": "https://d2l9nsnmtah87f.cloudfront.net/profile-images/arka107-a735eb17-dcd6-4144-8196-3cfb86818700.jpg",
+    "username": "arka107",
+    "verified": false,
+    "full_name": "Arka Saha",
+    "following_status": "following",
+    "private_profile": false
+  },
+  {
+    "id": "6ffc4ba7-df5a-4f29-998c-8815032113cc",
+    "profile_pic": "https://d2l9nsnmtah87f.cloudfront.net/profile-images/atomic_fitness7766-2f093057-1d01-46ba-b357-ed0a25aa9956.jpg",
+    "username": "jrocks77",
+    "verified": false,
+    "full_name": "Jeana",
+    "following_status": "following",
+    "private_profile": false
+  },
+  {
+    "id": "a36cb629-0bf7-407d-825e-fb5e2c4064f7",
+    "profile_pic": "https://d2l9nsnmtah87f.cloudfront.net/profile-images/raden2023-d88af7bc-eed1-42f7-bd8a-8fdb116f31a1.jpg",
+    "username": "raden2023",
+    "verified": false,
+    "full_name": "Rachel",
+    "following_status": "following",
+    "private_profile": false
+  },
+  {
+    "id": "ad890f16-074b-43f0-9fa4-c3d425b6d93e",
+    "profile_pic": "https://d2l9nsnmtah87f.cloudfront.net/profile-images/ralphrenzo-5dfffc1d-3773-4af4-a071-1ae7185eee90.jpg",
+    "username": "ralphrenzo",
+    "verified": false,
+    "full_name": "Ralph",
+    "following_status": "not-following",
+    "private_profile": false
+  }
+]
