@@ -1,14 +1,22 @@
 import os
-import json
-import requests
-from time import sleep
+import time
+import random
 from datetime import datetime
+import requests
+from dotenv import load_dotenv
+from collect_people_to_follow import get_users_to_follow
+from follow_users import follow_users
+from unfollow_user import run_unfollow_logic
+from dateutil.parser import isoparse
+# --- Load environment variables ---
+load_dotenv()
 
-# --- Configuration ---
-API_KEY    = 'shelobs_hevy_web'
-AUTH_TOKEN = '5b1a4fa0-8a27-4443-9340-f71a10cff525'
-USERNAME   = 'daniiiiii553'
-UNFOLLOWED_FILE = 'unfollowed_users.txt'
+# --- Settings ---
+TARGET_COUNT = 10
+UNFOLLOWED_FILE = os.getenv("UNFOLLOWED_FILE", "unfollowed_users.txt")
+API_KEY = os.getenv('API_KEY')
+AUTH_TOKEN = os.getenv('AUTH_TOKEN')
+HEVY_USERNAME = os.getenv('HEVY_USERNAME')
 
 HEADERS = {
     'x-api-key': API_KEY,
@@ -17,92 +25,115 @@ HEADERS = {
     'Accept': 'application/json, text/plain, */*'
 }
 
-BASE_URL = 'https://api.hevyapp.com'
+
+# --- Utility Functions ---
+def delay(min_sec=1.5, max_sec=3.0):
+    """Randomized delay between requests to avoid detection."""
+    time.sleep(random.uniform(min_sec, max_sec))
 
 
-# --- File Utilities ---
-def save_json(data, label):
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    filename = f'{label}_{timestamp}.json'
-    with open(filename, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=2)
-    print(f'💾 Saved {label} to {filename}')
-
-
-def load_unfollowed_users():
-    if not os.path.exists(UNFOLLOWED_FILE):
+def load_unfollowed_users(filepath):
+    if not os.path.exists(filepath):
         return set()
-    with open(UNFOLLOWED_FILE, 'r') as f:
+    with open(filepath, 'r') as f:
         return set(line.strip() for line in f)
 
 
-def save_unfollowed_user(username):
-    with open(UNFOLLOWED_FILE, 'a') as f:
-        f.write(f'{username}\n')
-
-
-# --- Hevy API Interaction ---
-def get_following():
-    res = requests.get(f'{BASE_URL}/following/{USERNAME}', headers=HEADERS)
+def get_following_usernames(username, headers):
+    url = f"https://api.hevyapp.com/following/{username}"
+    res = requests.get(url, headers=headers)
+    if res.status_code == 429:
+        print("⚠️ Rate limited. Sleeping for 5 minutes...")
+        time.sleep(300)
+        return set()
     res.raise_for_status()
-    return res.json()
+    return set(user['username'] for user in res.json())
 
 
-def get_all_followers():
+def get_all_follower_usernames(username, headers):
     all_followers = []
     offset = 0
     while True:
-        res = requests.get(f'{BASE_URL}/followers_paged/{USERNAME}/{offset}', headers=HEADERS)
+        res = requests.get(f'https://api.hevyapp.com/followers_paged/{username}/{offset}', headers=headers)
+        if res.status_code == 429:
+            print("⚠️ Rate limited. Sleeping for 5 minutes...")
+            time.sleep(300)
+            continue
         res.raise_for_status()
         page = res.json()
         if not page:
             break
         all_followers.extend(page)
         offset += 50
-        sleep(0.5)  # Respectful delay
-    return all_followers
+        delay(0.5, 1.0)  # respectful pagination delay
 
-
-def follow_user(username):
-    if username in unfollowed_users:
-        print(f'⛔ Skipped (unfollowed before): {username}')
-        return
-    res = requests.post(f'{BASE_URL}/follow', headers=HEADERS, json={'username': username})
-    if res.status_code == 200:
-        print(f'+ Followed: {username}')
-    else:
-        print(f'! Failed to follow: {username}')
-
-
-def unfollow_user(username):
-    res = requests.post(f'{BASE_URL}/unfollow', headers=HEADERS, json={'username': username})
-    if res.status_code == 200:
-        print(f'- Unfollowed: {username}')
-        save_unfollowed_user(username)
-    else:
-        print(f'! Failed to unfollow: {username}')
+    return set(user['username'] for user in all_followers)
 
 
 # --- Main Automation ---
-def automate():
-    global unfollowed_users
-    unfollowed_users = load_unfollowed_users()
+# def main():
+#     print("🚀 Loading state...")
+#     unfollowed = load_unfollowed_users(UNFOLLOWED_FILE)
+#     following = get_following_usernames(HEVY_USERNAME, HEADERS)
 
-    print('🚀 Fetching data...')
-    following = get_following()
-    followers = get_all_followers()
+#     print("🔍 Collecting users to follow...")
+#     to_follow = get_users_to_follow(unfollowed, following, TARGET_COUNT)
 
-    # Save snapshots
-    save_json(following, 'following')
-    save_json(followers, 'followers')
+#     print(f"\n✅ Found {len(to_follow)} new users to follow:")
+#     for i, user in enumerate(to_follow, 1):
+#         print(f"{i:2}. @{user}")
+
+#     if to_follow:
+#         print("\n🔁 Starting follow sequence...")
+#         follow_users(to_follow)
+        
+
+#     print("\n🎯 Done.")
+
+def main():
+    print("🚀 Loading state...")
+    unfollowed = load_unfollowed_users(UNFOLLOWED_FILE)
+    following = get_following_usernames(HEVY_USERNAME, HEADERS)
+    with open("whitelist_file.txt", "r") as f:
+        whitelist = set(line.strip() for line in f)
     
+    print("🔍 Collecting users to follow...")
+    to_follow = get_users_to_follow(unfollowed, following, TARGET_COUNT)
+
+    # print(f"\n✅ Found {len(to_follow)} new users to follow:")
+    # for i, user in enumerate(to_follow, 1):
+    #     print(f"{i:2}. @{user}")
+
+    # if to_follow:
+    #     print("\n🔁 Starting follow sequence...")
+    #     follow_users(to_follow)
+        
 
 
 
-    
-
-    print('✅ Automation complete.')
 
 
-if __name__ == '__main__':
-    automate()
+
+    already_followed = {}
+    if os.path.exists("already_followed.txt"):
+        with open("already_followed.txt", "r") as f:
+            for line in f:
+                if "," in line:
+                    user, timestamp = line.strip().split(",", 1)
+                    already_followed[user] = datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%f%z")
+
+    run_unfollow_logic(
+        followers=get_all_follower_usernames(HEVY_USERNAME, HEADERS),
+        following=[{'username': u} for u in following],  # wrap to match dict format
+        already_followed=already_followed,
+        whitelist=whitelist,
+        unfollowed=unfollowed,
+        headers=HEADERS,
+        unfollow_cap=10,
+        unfollowed_file=UNFOLLOWED_FILE
+    )
+
+
+
+if __name__ == "__main__":
+    main()
