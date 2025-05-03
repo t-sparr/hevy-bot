@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.log
+
+# Environment and secrets
+.env
+*.env
+
+# Data files
+unfollowed_users.txt
+whitelist_file.txt
+already_followed.txt
+temp_follow.txt
+*.json
+
+# VSCode or IDE stuff
+.vscode/
+.idea/
+
+# OS junk
+.DS_Store
+Thumbs.db
