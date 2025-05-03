@@ -3,6 +3,7 @@ import random
 import os
 import sys
 import requests
+
 from utils import*
 from follow_users import follow_users
 
@@ -34,7 +35,8 @@ def main():
     my_following = get_following(HEVY_USERNAME, HEADERS)
     my_followers = get_followers(HEVY_USERNAME, HEADERS)
 
-    
+    follow_users(["bogu44","marco_bbl"], my_following)
+    print("\nFINISHED")
 
 if __name__ == "__main__":
     main()

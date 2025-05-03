@@ -3,7 +3,6 @@ import requests
 import time
 from datetime import datetime, timezone
 from utils import*
-from utils import TEMP_FOLLOWING
 
 def load_temp_follow():
     if not os.path.exists(TEMP_FOLLOWING):
