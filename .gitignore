@@ -9,9 +9,10 @@ __pycache__/
 *.env
 
 # Data files
+temp_following.txt
 unfollowed_users.txt
 whitelist_file.txt
-temp_following.txt
+
 *.json
 
 # VSCode or IDE stuff
