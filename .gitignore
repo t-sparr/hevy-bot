@@ -11,8 +11,7 @@ __pycache__/
 # Data files
 unfollowed_users.txt
 whitelist_file.txt
-already_followed.txt
-temp_follow.txt
+temp_following.txt
 *.json
 
 # VSCode or IDE stuff
