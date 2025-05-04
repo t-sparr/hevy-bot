@@ -4,8 +4,10 @@ import os
 import sys
 import requests
 
-from utils import*
+from utils import *
 from follow_users import follow_users
+from collect_people_to_follow import get_users_to_follow
+from unfollow_user import unfollower_users
 
 
 def get_following(username, headers):
@@ -31,12 +33,28 @@ def get_followers(username, headers):
 
     return set(user['username'] for user in all_followers)
 
+def load_temp_follow():
+    if not os.path.exists(TEMP_FOLLOWING_PATH):
+        return set()
+    with open(TEMP_FOLLOWING_PATH, 'r') as f:
+        return set(line.strip().split(',')[0] for line in f.readlines())
+
 def main():
     my_following = get_following(HEVY_USERNAME, HEADERS)
     my_followers = get_followers(HEVY_USERNAME, HEADERS)
+    temp_follow = load_temp_follow()
 
-    follow_users(["bogu44","marco_bbl"], my_following)
-    print("\nFINISHED")
+    #Grab users to follow
+    to_follow = get_users_to_follow(my_following, my_followers)
+
+    #Follow those users
+    follow_users(to_follow, my_following, temp_follow)
+
+    #Unfollower X users
+    unfollower_users(my_following, my_followers)
+
+    print("--FINISHED--")
+
 
 if __name__ == "__main__":
     main()

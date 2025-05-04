@@ -2,13 +2,8 @@ import os
 import requests
 import time
 from datetime import datetime, timezone
-from utils import*
+from utils import *
 
-def load_temp_follow():
-    if not os.path.exists(TEMP_FOLLOWING):
-        return set()
-    with open(TEMP_FOLLOWING, 'r') as f:
-        return set(line.strip().split(',')[0] for line in f.readlines())
     
 def follow_user(username):
     payload = {'username': username}
@@ -23,12 +18,11 @@ def follow_user(username):
 
 def log_follow(username):
     timestamp = datetime.now(timezone.utc).isoformat()
-    with open (TEMP_FOLLOWING, 'a') as f:
+    with open (TEMP_FOLLOWING_PATH, 'a') as f:
         f.write(f"{username},{timestamp}\n")
 
 
-def follow_users(usernames, my_following):
-    temp_following = load_temp_follow()
+def follow_users(usernames, my_following, temp_following):
     for user in usernames:
         if user in temp_following or user in my_following:
             print(f"Skipping @{user}, already followed.")

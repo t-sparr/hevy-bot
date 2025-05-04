@@ -4,6 +4,7 @@ import os
 import random
 import requests
 import sys
+import yaml
 
 from dotenv import load_dotenv
 
@@ -17,7 +18,9 @@ HEVY_USERNAME = os.getenv('HEVY_USERNAME')
 WEBHOOK_URL = os.getenv("WEBHOOK_URL")
 DISCORD_ID = os.getenv("DISCORD_ID")
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-TEMP_FOLLOWING = os.path.join(BASE_DIR, "data", "temp_following.txt")
+TEMP_FOLLOWING_PATH = os.path.join(BASE_DIR, "data", "temp_following.txt")
+UNFOLLOWED_USERS_PATH = os.path.join(BASE_DIR, "data", "unfollowed_users.txt")
+
 
 HEADERS = {
     'x-api-key': API_KEY,
@@ -25,6 +28,7 @@ HEADERS = {
     'Hevy-Platform': 'web',
     'Accept': 'application/json, text/plain, */*'
 }
+
 
 
 def delay(min_sec=1.5, max_sec=3.0):
@@ -42,3 +46,9 @@ def kill_switch(reason):
     print(f"Program Killed: {reason}")
     send_discord_alert(f"Program Killed: {reason} <@{DISCORD_ID}>")
     sys.exit(reason)
+
+def load_config(path="config/config.yaml"):
+    with open(path, "r") as f:
+        return yaml.safe_load(f)
+    
+CONFIG = load_config()
