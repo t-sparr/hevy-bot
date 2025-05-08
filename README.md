@@ -36,7 +36,8 @@ Everything is rate-limited and safely spaced using randomized delays.
 ## Discord Log
 **----------------- Session Summary -----------------**
 
-✅ **Followed (30):**
+**Followed (30):**
+
 @sergiototti  
 @vikingfoxx  
 @c187  
@@ -68,7 +69,8 @@ Everything is rate-limited and safely spaced using randomized delays.
 @kali_will  
 @diogenescordeiro  
 
-🚫 **Unfollowed (16):**
+**Unfollowed (16):**
+
 @christofer_monteiro — *Hasn't followed back after 3+ days*  
 @geogirl — *Hasn't followed back after 3+ days*  
 @hirocosm — *Hasn't followed back after 3+ days*  
