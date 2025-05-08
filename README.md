@@ -64,6 +64,16 @@ Sends a log of who was followed/unfollowed with optional user mentions for alert
 
 All actions are rate-limited with randomized delays to mimic human behavior.
 
+## How to Get Your Hevy Token
+
+To run the bot, you’ll need your Hevy session token. Here's how to find it:
+
+1. Go to [hevy.com](https://hevy.com) and log into your account.
+2. Open **Developer Tools** (`F12` or right-click -> *Inspect*).
+3. Go to the **Application** tab.
+4. In the sidebar under **Storage**, click **Cookies** > `https://hevy.com`.
+5. Find the cookie named `auth-token`. That’s your token.
+
 ---
 
 ## Discord Log
