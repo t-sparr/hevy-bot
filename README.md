@@ -65,7 +65,7 @@ To run the bot, you’ll need your Hevy session token. Here's how to find it:
 
 ---
 
-## Discord Log
+## Ex) Discord Log
 **----------------- Session Summary -----------------**
 
 ✅ **Followed (30):**
