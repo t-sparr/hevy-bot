@@ -1,2 +1,22 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Environment variables
 .env
-*.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs or temp files
+*.log
+
+# GitHub-specific
+!.github/
