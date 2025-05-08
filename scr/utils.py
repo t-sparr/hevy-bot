@@ -23,10 +23,8 @@ verify_env()
 
 # --- Load environment variables ---
 API_KEY = "shelobs_hevy_web"
-# AUTH_TOKEN = "8832813e-5f3c-4397-be2d-bef91091f9fb"
-# HEVY_USERNAME = "ilovecatssomuch"
-AUTH_TOKEN = "8832813e-5f3c-4397-be2d-bef91091f9fb"
-HEVY_USERNAME = "not_marco"
+AUTH_TOKEN = "API_TOKEN"
+HEVY_USERNAME = "HEVY_USERNAME"
 WEBHOOK_MAIN_URL = "https://discord.com/api/webhooks/1368605777249435759/AWfjsHOFix8JPYtwVkjwRdtF4VE3B6zfO3jyIKZAv5YqF6zAW0-CG9f8IFFXd_L2bTJo"
 WEBHOOK_OTHER_URL = "https://discord.com/api/webhooks/1368605890998960251/TcjMlJ3keHcb8k24TJASKH6T0k2R_xMgKCyUZzZVcJf7aa7lYbmAbEDTh4KSdlVBx85a"
 
