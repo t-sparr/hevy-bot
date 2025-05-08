@@ -1,0 +1,14 @@
+# config.yaml
+
+follow:
+  comment_ratio: 0.5     # 50% from comments, 50% from likes
+  follow_target: 10      # number of users to follow daily
+
+unfollow:
+  unfollow_timer_days: 7  # days since follow before unfollow
+  inactive_days: 21       # unfollow if no post in this many days
+  unfollow_cap: 30        # max unfollows per script run
+
+routine:
+  api_check_interval: 300   # in seconds
+  run_time: "05:00"         # script scheduled time (24hr format)
