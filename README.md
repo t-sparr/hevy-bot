@@ -17,17 +17,6 @@ This is a modular Python automation bot for [Hevy](https://www.hevyapp.com/), de
 
 ---
 
-## Features
-
-- **Smart Discovery**: Finds users from the Discover feed who are actively commenting or liking others.
-- **Automated Following**: Follows users based on engagement criteria.
-- **Unfollowing Logic**: Removes users who are inactive or don’t follow back within a set time.
-- **Workout Liking**: Likes recent workouts from discovered users to boost interaction.
-- **Token Health Monitoring**: Confirms valid session with the Hevy API.
-- **Discord Webhooks**: Sends status summaries and errors directly to Discord.
-
----
-
 ## How it Works
 
 The bot is orchestrated through `hevy_bot.py` and works in five key stages, using a combination of **GET** and **POST** requests to interact with the Hevy API:
